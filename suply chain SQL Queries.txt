@@ -1,0 +1,37 @@
+--Q1 top selling products
+SELECT Product_type,
+SUM("Number of products sold") as total_sales
+FROM supply_chain_data
+GROUP BY Product_type
+ORDER BY total_sales DESC;
+
+--Q2: Products with low stock show inventory shortage risk
+SELECT product_type, stock_level
+FROM supply_chain_data
+WHERE stock_level < 50;
+
+--Q3: supplier performance shows fast and slow suppliers
+SELECT supplier_names,
+AVG(lead_time) AS avg_lead_time
+FROM supply_chain_data
+GROUP BY supplier_names
+ORDER BY avg_lead_time;
+
+--Q4: Shipping cost analysis
+SELECT transportation_mode,
+AVG(shipping_cost)
+FROM supply_chain_data
+GROUP BY transportation_mode;
+
+--Q5: Out of stock or  stock risk THIS FINDS that are selling fast and but inventory is low
+SELECT product_type, stock_level,
+"Number of products sold"
+FROM supply_chain_data
+WHERE stock_level < 20
+AND "Number of products sold" > 100;
+
+-- Q6: Inventory Turnover Analysis 
+SELECT product_type,
+"Number of products sold"
+FROM supply_chain_data
+ORDER BY inventory_turnover DESC;
